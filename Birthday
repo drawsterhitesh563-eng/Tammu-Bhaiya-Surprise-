@@ -1,0 +1,210 @@
+<html>
+    <head>
+        <title>Birthday Surprise</title>
+        <style>
+            body {
+                text-align : center;
+                background-color : #FF6B6B;
+            }
+            h1 {
+                padding : 5px;
+                margin : 10px;
+                color : #FFD166;
+                background-color : #087EAD;
+                border-radius : 30px;
+                border : 10px double black;
+            }
+            section {
+                padding : 10px;
+                margin : 5px;
+                background-color : #F2B421;
+                border : 10px outset black;
+                color : #FFFFFF;
+            }
+            .stage {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    background-color: #FFD166;
+}
+
+.birthday-message {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+transition: opacity 1s ease;
+}
+
+.curtain {
+    transition: transform 1.5s ease-in-out;
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        #800000,
+        #D62828,
+        #800000
+    );
+    z-index: 2;
+}
+
+.left-curtain {
+    left: 0;
+}
+
+.right-curtain {
+    right: 0;
+}
+.left-curtain.open {
+    transform: translateX(-100%);
+}
+
+.right-curtain.open {
+    transform: translateX(100%);
+}
+.birthday-message.show {
+    opacity: 1;
+}
+.pull-handle {
+    position: absolute;
+    z-index: 10;
+    bottom: 15px;
+    left: 10%;
+    width: 80%;
+    cursor: pointer;
+    height: 12px;
+accent-color: #FFD166;
+appearance: none;
+background: transparent;
+height: 30px;
+}
+.pull-handle::-webkit-slider-runnable-track {
+    height: 6px;
+    background: white;
+    border-radius: 10px;
+}
+
+.pull-handle::-webkit-slider-thumb {
+    appearance: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #FFD166;
+    border: 4px solid #087EAD;
+    margin-top: -11px;
+}
+.pull-text {
+    position: absolute;
+    bottom: 65px;
+    width: 100%;
+    color: #087EAD;
+    font-size: 18px;
+    font-weight: 900;
+    z-index: 10;
+}
+.birthday-message {
+    top: 40%;
+}
+.confetti-container {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.confetti-piece {
+    position: absolute;
+    top: -15px;
+    width: 10px;
+    height: 15px;
+    animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(450px) rotate(720deg);
+    }
+}
+
+        </style>
+    </head>
+    <body>
+        <h1>HAPPY BIRTHDAY TAMMU BHAIYA!</h1>
+    <div class="stage">
+    <div class="pull-text">
+    👇 PULL TO REVEAL 👇
+</div>
+    <div class="birthday-message">
+        <section>
+            <p>
+                Wishing you a very happy birthday!
+                I hope your day becomes unforgettable
+                and filled with happiness and joy!
+                <br>–gullu
+            </p>
+        </section>
+
+        <p>❤️❤️🎂🎂🎂❤️❤️</p>
+    </div>
+
+    <div class="curtain left-curtain"></div>
+    <div class="curtain right-curtain"></div>
+
+    <input
+        type="range"
+        class="pull-handle"
+        min="0"
+        max="100"
+        value="0"
+    >
+<div class="confetti-container"></div>
+</div>
+    <script>
+    const handle = document.querySelector(".pull-handle");
+    const left = document.querySelector(".left-curtain");
+    const right = document.querySelector(".right-curtain");
+    const message = document.querySelector(".birthday-message");
+    const confettiBox = document.querySelector(".confetti-container");
+    let celebrated = false;
+
+function launchConfetti() {
+    const colors = ["#FFD166", "#EF476F", "#06D6A0", "#118AB2"];
+
+    for (let i = 0; i < 50; i++) {
+        const piece = document.createElement("span");
+
+        piece.classList.add("confetti-piece");
+        piece.style.left = Math.random() * 100 + "%";
+        piece.style.backgroundColor =
+            colors[Math.floor(Math.random() * colors.length)];
+
+        piece.style.animationDelay = Math.random() * 2 + "s";
+
+        confettiBox.appendChild(piece);
+
+        setTimeout(() => piece.remove(), 5000);
+    }
+}
+
+    handle.addEventListener("input", function() {
+    if (handle.value >= 90) {
+        left.classList.add("open");
+        right.classList.add("open");
+        message.classList.add("show");
+        launchConfetti();
+    } else {
+        left.classList.remove("open");
+        right.classList.remove("open");
+        message.classList.remove("show");
+    }
+});
+</script>
+    
+</body>
+</html>
